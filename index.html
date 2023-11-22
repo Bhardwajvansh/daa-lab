@@ -103,6 +103,15 @@
     </code>
   </pre>
     </div>
+    <h2>9. KnapsackDP</h2>
+    <div class="highlight">
+        <pre class="chroma">
+    <code class="language-python" data-lang="java">
+        <p id="p2">
+        </p>
+    </code>
+  </pre>
+    </div>
 
     <script>
         function createCopyButton(highlightDiv) {
@@ -223,6 +232,86 @@ public class HorspoolSearch {
         horspoolSearch(text, pattern);
         sc.close();
     }
+}
+        `
+        document.getElementById("p1").innerHTML=`
+        package snap;
+import java.util.Scanner;
+
+public class KnapsackDP {
+	public static int knapsack(int[]weights,int[]values,int capacity,boolean[]includeitems)
+	{
+	int n=weights.length;
+	int[][] dp=new int[n+1][capacity+1];
+	for(int i=0;i<=n;i++)
+	{
+		for(int w=0;w<=capacity;w++)
+		{
+			if(i==0||w==0)
+			{
+				dp[i][w]=0;
+			}else if(weights[i-1]<=w)
+			{
+				dp[i][w]=Math.max(values[i-1]+dp[i-1][w-weights[i-1]],dp[i-1][w]);
+			}
+			else
+			{
+				dp[i][w]=dp[i-1][w];
+			}
+		}
+	}
+	int remainingcapacity=capacity;
+	for(int i=n;i>0 && dp[i][remainingcapacity]>0;i--)
+		
+{if(dp[i][remainingcapacity]!=dp[i-1][remainingcapacity])
+{
+	includeitems[i-1]=true;
+	remainingcapacity-=weights[i-1];
+}
+	
+}
+	return dp[n][capacity];
+	}
+public static void main(String[] args)
+{
+	Scanner scanner=new Scanner(System.in);
+	System.out.print("Enter the numebr of items:");
+	int n=scanner.nextInt();
+	int[]weights=new int[n];
+	int[]values=new int[n];
+	boolean[] includeitems=new boolean[n];
+	System.out.println("Enter the weights of the items:");
+	for(int i=0;i<n;i++)
+	{
+		weights[i]=scanner.nextInt();
+	} 
+    System.out.println("Enter the values of item:");
+    for(int i=0;i<n;i++)
+    {
+    	values[i]=scanner.nextInt();
+    }
+    System.out.print("Enter the kanpsack capacity:");
+    int capacity=scanner.nextInt();
+    
+   
+    int maxValue=knapsack(weights,values,capacity,includeitems);
+    
+    System.out.println("Maximum value:"+maxValue);
+    for(int i=0;i<n;i++)
+    {
+    	if(includeitems[i])
+    	{
+    		System.out.print("1 ");
+    	}
+    	else
+    	{
+    		System.out.print("0 ");
+    	}
+    }
+    	
+	
+    scanner.close();
+}
 }
         `
     </script>
